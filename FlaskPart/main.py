@@ -1,7 +1,9 @@
 import os
 
-from flask import Flask, request, jsonify, make_response, send_from_directory
+from flask import Flask, request, jsonify, make_response, send_from_directory, url_for
 from werkzeug.utils import secure_filename
+
+import synthesizer
 
 app = Flask(__name__)
 
@@ -11,7 +13,7 @@ audios_path = 'audios'
 def compose_response(action, question_text, answer_text, audio_url):
     response_body = jsonify(
         action=action,
-        audioUrl=os.path.join(app.root_path, audios_path, "hyper-spoiler.mp3"),
+        audioUrl=audio_url,
         questionText=question_text,
         answerText=answer_text
     )
@@ -31,8 +33,13 @@ def get_answer_by_text():
         text = data['text']
         if text != "":
             print("Get text ", text)
-            response_body = compose_response("some action", "Here will be question text", "Here will be answer text",
-                                             "AudioUrl")
+            # Здесь получим ответ от Игоря
+            answer_text = "Kaleysan, yaxshimisan, o'rto?"
+            audio_path = synthesizer.make_audio_from_text(answer_text)
+            audio_url = url_for("download", file_path=audio_path)
+            print("url in answer " + audio_url)
+            response_body = compose_response("some action", text, answer_text=answer_text,
+                                             audio_url=audio_url)
             return make_response(response_body, 200)
         else:
             return make_response("text is empty", 400)
@@ -64,4 +71,5 @@ def download(file_path):
 
 
 if __name__ == "__main__":
+    synthesizer.initialize(app.root_path)
     app.run(host="0.0.0.0", port=5000, debug=True)
