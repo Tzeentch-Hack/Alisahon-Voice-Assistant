@@ -10,7 +10,7 @@ public class DialogResponseModel
 
     public string action;
 
-    public string text;
+    public string answerText;
 
     public string audioUrl;
 
