@@ -3,34 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public class AnswerStructure 
-{
-    string text;
-
-    string audioUrl;
-}
 
 [Serializable]
 public class DialogResponseModel
 {
 
-    string action;
+    public string action;
 
-    AnswerStructure answer;
+    public string text;
 
-    string questionText;
+    public string audioUrl;
 
+    public string questionText;
+
+}
+
+public class DialogUIResponseModel
+{
+    public string action;
+
+    public AudioClip audioClip;
+
+    public string answerText;
+
+    public string questionText;
 }
 
 [Serializable]
 public class DialogTextRequestModel
 {
-    string text;
+   public string text;
 }
 
 [Serializable]
 public class DialogAudioRequestModel
 {
-    byte[] audio;
+   public byte[] audio;
 }
