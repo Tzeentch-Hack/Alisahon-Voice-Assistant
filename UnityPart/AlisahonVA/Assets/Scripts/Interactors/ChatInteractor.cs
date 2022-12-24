@@ -7,6 +7,8 @@ public class ChatInteractor
 {
     public static ChatInteractor Instance;
     public UnityEvent<DialogUIResponseModel> GetResponse;
+    
+    public UnityEvent ServerError;
 
     /*
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.)]
@@ -20,6 +22,8 @@ public class ChatInteractor
     {
         if (GetResponse == null)
             GetResponse = new UnityEvent<DialogUIResponseModel>();
+        if (ServerError == null)
+            ServerError = new UnityEvent();
         Instance = this;
     }
 

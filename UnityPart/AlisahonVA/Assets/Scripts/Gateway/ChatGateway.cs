@@ -63,7 +63,10 @@ public class ChatGateway
 				this.LogMessage("Success", JsonUtility.ToJson(res, true));
 			});
 			})
-		.Catch(err => this.LogMessage("Error", err.Message));
+		.Catch(err => {
+			ChatInteractor.Instance.ServerError.Invoke();
+			this.LogMessage("Error", err.Message);
+		});
 	}
 
     public void PostText(string text)
@@ -97,7 +100,9 @@ public class ChatGateway
 				this.LogMessage("Success", JsonUtility.ToJson(res, true));
 			});
 		})
-		.Catch(err => this.LogMessage("Error", err.Message));
+		.Catch(err => {
+			ChatInteractor.Instance.ServerError.Invoke();
+			this.LogMessage("Error", err.Message); });
 	}
 
 }

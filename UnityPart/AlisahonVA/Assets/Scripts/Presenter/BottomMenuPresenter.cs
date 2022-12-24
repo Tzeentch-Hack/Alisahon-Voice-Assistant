@@ -11,6 +11,12 @@ public class BottomMenuPresenter : MonoBehaviour
     private Button multiFunctionalButton;
 
     [SerializeField]
+    private GameObject loader;
+
+    [SerializeField]
+    private ChatWindowPresenter chatWindowPresenter;
+
+    [SerializeField]
     private TMP_InputField inputField;
 
     [SerializeField]
@@ -28,10 +34,19 @@ public class BottomMenuPresenter : MonoBehaviour
 
     private void SetupMenu()
     {
-        ChatInteractor.Instance.GetResponse.AddListener(playAudio);
+        ChatInteractor.Instance.GetResponse.AddListener(PlayAudio);
+        ChatInteractor.Instance.ServerError.AddListener(AfterError);
         multiFunctionalButton.onClick.AddListener(RecordMode);
         multiFunctionalButton.image.sprite = micImage;
         inputField.onValueChanged.AddListener(CheckInput);
+    }
+
+    private void AfterError()
+    {
+        multiFunctionalButton.gameObject.SetActive(true);
+        multiFunctionalButton.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        inputField.gameObject.SetActive(true);
+        loader.SetActive(false);
     }
 
     void Start()
@@ -39,8 +54,12 @@ public class BottomMenuPresenter : MonoBehaviour
         SetupMenu();
     }
 
-    private void playAudio(DialogUIResponseModel dialogUIResponse)
+    private void PlayAudio(DialogUIResponseModel dialogUIResponse)
     {
+        multiFunctionalButton.gameObject.SetActive(true);
+        multiFunctionalButton.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        inputField.gameObject.SetActive(true);
+        loader.SetActive(false);
         audioSource.clip = dialogUIResponse.audioClip;
         audioSource.Play();
     }
@@ -64,6 +83,10 @@ public class BottomMenuPresenter : MonoBehaviour
     private void SendText()
     {
         ChatInteractor.Instance.SendText(currentText);
+        multiFunctionalButton.gameObject.SetActive(false);
+        inputField.gameObject.SetActive(false);
+        chatWindowPresenter.CreateMessages(currentText);
+        loader.SetActive(true);
     }
 
     private void RecordMode()
@@ -79,11 +102,16 @@ public class BottomMenuPresenter : MonoBehaviour
             Debug.Log("Stop recording");
             byte[] bytes = WavToMp3.ConvertWavToMp3(clientAudio, 128);
             ChatInteractor.Instance.SendAudio(bytes);
+            chatWindowPresenter.CreateMessages("");
+            multiFunctionalButton.gameObject.SetActive(false);
+            loader.SetActive(true);
         }
         else
         {
             Debug.Log("Start recording");
             clientAudio = Microphone.Start(null, false, 5, 32000);
+            inputField.gameObject.SetActive(false);
+            multiFunctionalButton.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 }
