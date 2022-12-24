@@ -18,6 +18,8 @@ public class ChatInteractor
     */
     public ChatInteractor()
     {
+        if (GetResponse == null)
+            GetResponse = new UnityEvent<DialogUIResponseModel>();
         Instance = this;
     }
 
@@ -29,11 +31,6 @@ public class ChatInteractor
     public void SendText(string text)
     {
         ChatGateway.Instance.PostText(text);
-    }
-
-    public void SetData(DialogUIResponseModel uIResponseModel)
-    {
-       
     }
 
 }

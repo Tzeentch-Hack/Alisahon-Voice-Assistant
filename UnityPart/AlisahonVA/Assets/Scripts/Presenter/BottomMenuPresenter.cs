@@ -13,11 +13,15 @@ public class BottomMenuPresenter : MonoBehaviour
     [SerializeField]
     private TMP_InputField inputField;
 
+    [SerializeField]
+    private AudioSource audioSource;
+
     string currentText;
     AudioClip clientAudio;
 
     private void SetupMenu()
     {
+        ChatInteractor.Instance.GetResponse.AddListener(playAudio);
         multiFunctionalButton.onClick.AddListener(RecordMode);
         inputField.onValueChanged.AddListener(CheckInput);
     }
@@ -25,6 +29,12 @@ public class BottomMenuPresenter : MonoBehaviour
     void Start()
     {
         SetupMenu();
+    }
+
+    private void playAudio(DialogUIResponseModel dialogUIResponse)
+    {
+        audioSource.clip = dialogUIResponse.audioClip;
+        audioSource.Play();
     }
 
     private void CheckInput(string text)
