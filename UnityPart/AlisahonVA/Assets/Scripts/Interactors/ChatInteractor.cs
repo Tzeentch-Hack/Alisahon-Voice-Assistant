@@ -8,12 +8,17 @@ public class ChatInteractor
     public static ChatInteractor Instance;
     public UnityEvent<DialogUIResponseModel> GetResponse;
 
-
+    /*
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.)]
     public void Initialize()
     {
         Instance = this;
         GetResponse.AddListener(SetData);
+    }
+    */
+    public ChatInteractor()
+    {
+        Instance = this;
     }
 
     public void SendAudio(byte[] audioClip)

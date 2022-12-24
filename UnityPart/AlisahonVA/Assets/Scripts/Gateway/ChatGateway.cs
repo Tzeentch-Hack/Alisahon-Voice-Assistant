@@ -13,12 +13,18 @@ public class ChatGateway
 	private RequestHelper currentRequest;
 
 	public static ChatGateway Instance;
+	/*
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
 	public void Initialize()
 	{ 
 		Instance = this;
 	}
+	*/
 
+	public ChatGateway()
+    {
+		Instance = this;
+    }
 	private void LogMessage(string title, string message)
 	{
 #if UNITY_EDITOR
@@ -33,12 +39,10 @@ public class ChatGateway
 		currentRequest = new RequestHelper
 		{
 			Uri = basePath + "/getAnswerByAudio",
-			Body = new DialogAudioRequestModel
-			{
-				audio = audioclip
-			},
+			FormData = new WWWForm(),
 			EnableDebug = true
 		};
+		currentRequest.FormData.AddBinaryData("audio", audioclip, "first");
 		RestClient.Post<DialogResponseModel>(currentRequest)
 		.Then(res => {
 			DownloadHandlerAudioClip downloadHandler = new DownloadHandlerAudioClip(res.audioUrl, AudioType.MPEG);

@@ -1,4 +1,6 @@
+import io
 import os
+from pydub import AudioSegment
 
 from flask import Flask, request, jsonify, make_response
 from werkzeug.utils import secure_filename
@@ -25,8 +27,10 @@ def hello_world():
 @app.route("/getAnswerByText", methods=['POST', 'GET'])
 def get_answer_by_text():
     if request.method == 'POST':
-        if request.form['text'] != '':
-            print("Get text ", request.form['text'])
+        data = request.get_json()
+        text = data['text']
+        if text != "":
+            print("Get text ", text)
             response_body = compose_response("some action", "Here will be question text", "Here will be answer text",
                                              "AudioUrl")
             return make_response(response_body, 200)
@@ -40,10 +44,13 @@ def get_answer_by_text():
 def get_answer_by_audio():
     if request.method == 'POST':
         file = request.files['audio']
+        #mybytes = file.read()
         if file != '':
             filename = secure_filename(file.filename)
             print("Get file ", filename)
-            file.save(os.path.join(app.root_path, audios_path, filename))
+            #mp3file = AudioSegment.from_file(file.read(), format="mp3")
+            #mp3file.save(os.path.join(app.root_path, audios_path, filename + ".mp3"))
+            file.save(os.path.join(app.root_path, audios_path, filename + ".mp3"))
             response_body = compose_response("some action", "Here will be question text", "Here will be answer text",
                                              "AudioUrl")
             return make_response(response_body, 200)
