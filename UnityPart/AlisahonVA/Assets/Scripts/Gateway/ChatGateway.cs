@@ -45,16 +45,24 @@ public class ChatGateway
 		currentRequest.FormData.AddBinaryData("audio", audioclip, "first");
 		RestClient.Post<DialogResponseModel>(currentRequest)
 		.Then(res => {
-			DownloadHandlerAudioClip downloadHandler = new DownloadHandlerAudioClip(res.audioUrl, AudioType.MPEG);
-			AudioClip clip = downloadHandler.audioClip;
-			ChatInteractor.Instance.GetResponse.Invoke(new DialogUIResponseModel {
-				action = res.action,
-				answerText= res.text,
-				audioClip = clip,
-				questionText = res.questionText
-			}); 
-			this.LogMessage("Success", JsonUtility.ToJson(res, true));
-		})
+			var fileUrl = basePath + "/download/" + res.audioUrl;
+			RestClient.Get(new RequestHelper
+			{
+				Uri = fileUrl,
+				DownloadHandler = new DownloadHandlerAudioClip(fileUrl, AudioType.MPEG)
+			}).Then(audioRes =>
+			{
+				AudioClip clip = ((DownloadHandlerAudioClip)audioRes.Request.downloadHandler).audioClip;
+				ChatInteractor.Instance.GetResponse.Invoke(new DialogUIResponseModel
+				{
+					action = res.action,
+					answerText = res.text,
+					audioClip = clip,
+					questionText = res.questionText
+				});
+				this.LogMessage("Success", JsonUtility.ToJson(res, true));
+			});
+			})
 		.Catch(err => this.LogMessage("Error", err.Message));
 	}
 
@@ -71,16 +79,23 @@ public class ChatGateway
 		};
 		RestClient.Post<DialogResponseModel>(currentRequest)
 		.Then(res => {
-			DownloadHandlerAudioClip downloadHandler = new DownloadHandlerAudioClip(res.audioUrl, AudioType.MPEG);
-			AudioClip clip = downloadHandler.audioClip;
-			ChatInteractor.Instance.GetResponse.Invoke(new DialogUIResponseModel
+			var fileUrl = basePath + "/download/" + res.audioUrl;
+			RestClient.Get(new RequestHelper
 			{
-				action = res.action,
-				answerText = res.text,
-				audioClip = clip,
-				questionText = res.questionText
+				Uri = fileUrl,
+				DownloadHandler = new DownloadHandlerAudioClip(fileUrl, AudioType.MPEG)
+			}).Then(audioRes =>
+			{
+				AudioClip clip = ((DownloadHandlerAudioClip)audioRes.Request.downloadHandler).audioClip;
+				ChatInteractor.Instance.GetResponse.Invoke(new DialogUIResponseModel
+				{
+					action = res.action,
+					answerText = res.text,
+					audioClip = clip,
+					questionText = res.questionText
+				});
+				this.LogMessage("Success", JsonUtility.ToJson(res, true));
 			});
-			this.LogMessage("Success", JsonUtility.ToJson(res, true));
 		})
 		.Catch(err => this.LogMessage("Error", err.Message));
 	}
