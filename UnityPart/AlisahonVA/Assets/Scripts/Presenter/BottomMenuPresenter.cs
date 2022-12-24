@@ -16,6 +16,13 @@ public class BottomMenuPresenter : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+
+    [SerializeField]
+    private Sprite micImage;
+
+    [SerializeField]
+    private Sprite sendImage;
+
     string currentText;
     AudioClip clientAudio;
 
@@ -23,6 +30,7 @@ public class BottomMenuPresenter : MonoBehaviour
     {
         ChatInteractor.Instance.GetResponse.AddListener(playAudio);
         multiFunctionalButton.onClick.AddListener(RecordMode);
+        multiFunctionalButton.image.sprite = micImage;
         inputField.onValueChanged.AddListener(CheckInput);
     }
 
@@ -43,10 +51,12 @@ public class BottomMenuPresenter : MonoBehaviour
         currentText = text;
         if(currentText.Length>0)
         {
-          multiFunctionalButton.onClick.AddListener(SendText);
+            multiFunctionalButton.onClick.AddListener(SendText);
+            multiFunctionalButton.image.sprite = sendImage;
         }
         else
         {
+            multiFunctionalButton.image.sprite = micImage;
             multiFunctionalButton.onClick.AddListener(RecordMode);
         }
     }
@@ -62,7 +72,6 @@ public class BottomMenuPresenter : MonoBehaviour
         {
             Microphone.End(null);
             Debug.Log("Stop recording");
-            //byte[] bytes = Convert(audio);
             byte[] bytes = WavToMp3.ConvertWavToMp3(clientAudio, 128);
             ChatInteractor.Instance.SendAudio(bytes);
         }
