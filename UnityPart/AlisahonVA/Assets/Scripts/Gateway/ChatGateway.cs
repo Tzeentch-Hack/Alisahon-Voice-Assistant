@@ -9,11 +9,11 @@ using UnityEngine.Networking;
 public class ChatGateway
 {
 
-    private readonly string basePath = "";
+    private readonly string basePath = "http://192.168.1.45:5000";
 	private RequestHelper currentRequest;
 
 	public static ChatGateway Instance;
-	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
 	public void Initialize()
 	{ 
 		Instance = this;
@@ -32,7 +32,7 @@ public class ChatGateway
     {
 		currentRequest = new RequestHelper
 		{
-			Uri = basePath + "/posts",
+			Uri = basePath + "/getAnswerByAudio",
 			Body = new DialogAudioRequestModel
 			{
 				audio = audioclip
@@ -58,7 +58,7 @@ public class ChatGateway
     {
 		currentRequest = new RequestHelper
 		{
-			Uri = basePath + "/posts",
+			Uri = basePath + "/getAnswerByText",
 			Body = new DialogTextRequestModel
 			{
 			     text = text

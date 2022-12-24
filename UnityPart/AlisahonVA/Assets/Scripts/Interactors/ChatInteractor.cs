@@ -9,7 +9,7 @@ public class ChatInteractor
     public UnityEvent<DialogUIResponseModel> GetResponse;
 
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.)]
     public void Initialize()
     {
         Instance = this;
