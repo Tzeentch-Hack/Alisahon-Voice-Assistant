@@ -79,7 +79,7 @@ public class ChatGateway
 		};
 		RestClient.Post<DialogResponseModel>(currentRequest)
 		.Then(res => {
-			var fileUrl = basePath + "/download/" + res.audioUrl;
+			var fileUrl = basePath + res.audioUrl;
 			RestClient.Get(new RequestHelper
 			{
 				Uri = fileUrl,

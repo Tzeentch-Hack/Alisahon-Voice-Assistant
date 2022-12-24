@@ -68,6 +68,11 @@ public class BottomMenuPresenter : MonoBehaviour
 
     private void RecordMode()
     {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         if (Microphone.IsRecording(null))
         {
             Microphone.End(null);
