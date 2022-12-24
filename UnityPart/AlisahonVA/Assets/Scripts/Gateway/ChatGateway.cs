@@ -56,7 +56,7 @@ public class ChatGateway
 				ChatInteractor.Instance.GetResponse.Invoke(new DialogUIResponseModel
 				{
 					action = res.action,
-					answerText = res.text,
+					answerText = res.answerText,
 					audioClip = clip,
 					questionText = res.questionText
 				});
@@ -90,7 +90,7 @@ public class ChatGateway
 				ChatInteractor.Instance.GetResponse.Invoke(new DialogUIResponseModel
 				{
 					action = res.action,
-					answerText = res.text,
+					answerText = res.answerText,
 					audioClip = clip,
 					questionText = res.questionText
 				});

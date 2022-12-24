@@ -632,6 +632,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2101514540}
     m_Modifications:
+    - target: {fileID: 2677547162813296135, guid: f87786001862df64695fb41c66cf8b68, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677547162813296135, guid: f87786001862df64695fb41c66cf8b68, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677547162813296135, guid: f87786001862df64695fb41c66cf8b68, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3808834143579614709, guid: f87786001862df64695fb41c66cf8b68, type: 3}
       propertyPath: m_Name
       value: ChatWindow
@@ -670,7 +682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544260973553885829, guid: f87786001862df64695fb41c66cf8b68, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -150.5327
+      value: -207.7233
       objectReference: {fileID: 0}
     - target: {fileID: 6544260973553885829, guid: f87786001862df64695fb41c66cf8b68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -706,7 +718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6544260973553885829, guid: f87786001862df64695fb41c66cf8b68, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 55.266357
+      value: 83.861595
       objectReference: {fileID: 0}
     - target: {fileID: 6544260973553885829, guid: f87786001862df64695fb41c66cf8b68, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

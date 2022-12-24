@@ -14,12 +14,18 @@ public class ChatWindowPresenter : MonoBehaviour
 
     private void Start()
     {
-        
+        ChatInteractor.Instance.GetResponse.AddListener(RecieveResponse);
     }
 
     private void ClearAllMessages()
     {
 
+    }
+
+    private void RecieveResponse(DialogUIResponseModel dialogUIResponseModel)
+    {
+        CreateCLientMessage(dialogUIResponseModel.questionText);
+        CreateServerMessage(dialogUIResponseModel.answerText);
     }
 
     private void CreateCLientMessage(string text)
