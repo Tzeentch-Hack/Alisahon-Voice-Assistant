@@ -53,14 +53,15 @@ def make_audio_from_text(text):
     #                             )
 
     audio_tensor = model.apply_tts(example_text, speaker=speaker)
-    file_name = "answer_file.mp3"
+    file_name = "answer_file.ogg"
     audio_path = os.path.join(root_path, answer_audios_path, file_name)
-    sf.write(audio_path, audio_tensor, sample_rate, format='mp3')
+    print(audio_path)
+    sf.write(audio_path, audio_tensor, sample_rate, format='ogg')
     #torchaudio.save(src=audio_tensor.data, sample_rate=sample_rate, filepath=audio_path)
     #shutil.move(audio_paths, audio_path)
     return audio_path
 
 
-#initialize('C:\GitRepos\Alisahon-Voice-Assistant\FlaskPart')
+initialize('/home/i_gore/PycharmProjects/Alisaxon')
 #make_audio_from_text("Kaleysan, yaxshimisan, o'rto?")
 
