@@ -63,7 +63,10 @@ public class ChatGateway
 				this.LogMessage("Success", JsonUtility.ToJson(res, true));
 			});
 			})
-		.Catch(err => this.LogMessage("Error", err.Message));
+		.Catch(err => {
+			ChatInteractor.Instance.ServerError.Invoke();
+			this.LogMessage("Error", err.Message);
+		});
 	}
 
     public void PostText(string text)
@@ -79,7 +82,7 @@ public class ChatGateway
 		};
 		RestClient.Post<DialogResponseModel>(currentRequest)
 		.Then(res => {
-			var fileUrl = basePath + "/download/" + res.audioUrl;
+			var fileUrl = basePath + res.audioUrl;
 			RestClient.Get(new RequestHelper
 			{
 				Uri = fileUrl,
@@ -97,7 +100,9 @@ public class ChatGateway
 				this.LogMessage("Success", JsonUtility.ToJson(res, true));
 			});
 		})
-		.Catch(err => this.LogMessage("Error", err.Message));
+		.Catch(err => {
+			ChatInteractor.Instance.ServerError.Invoke();
+			this.LogMessage("Error", err.Message); });
 	}
 
 }

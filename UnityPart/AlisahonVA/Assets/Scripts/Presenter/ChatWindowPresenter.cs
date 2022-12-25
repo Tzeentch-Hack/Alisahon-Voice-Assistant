@@ -12,9 +12,14 @@ public class ChatWindowPresenter : MonoBehaviour
     [SerializeField]
     private GameObject messageGrid;
 
+    private GameObject currentServerMessage;
+
+    private GameObject currentClientMessage;
+
     private void Start()
     {
         ChatInteractor.Instance.GetResponse.AddListener(RecieveResponse);
+        ChatInteractor.Instance.ServerError.AddListener(DestroyLastMessages);
     }
 
     private void ClearAllMessages()
@@ -22,23 +27,35 @@ public class ChatWindowPresenter : MonoBehaviour
 
     }
 
+    private void DestroyLastMessages()
+    {
+        Destroy(currentClientMessage);
+        Destroy(currentServerMessage);
+    }
+
+    public void CreateMessages(string text)
+    {
+        currentClientMessage = Instantiate(clientMessagePrefab, messageGrid.transform);
+        if (text != "")
+        {
+            currentClientMessage.GetComponent<ClientMessage>().SetText(text);
+        }
+        currentServerMessage = Instantiate(serverMessagePrefab, messageGrid.transform);
+    }
+
     private void RecieveResponse(DialogUIResponseModel dialogUIResponseModel)
     {
-        CreateCLientMessage(dialogUIResponseModel.questionText);
-        CreateServerMessage(dialogUIResponseModel.answerText);
+        SetUpCLientMessage(dialogUIResponseModel.questionText);
+        SetUpServerMessage(dialogUIResponseModel.answerText);
     }
 
-    private void CreateCLientMessage(string text)
+    private void SetUpCLientMessage(string text)
     {
-        GameObject newClientMessageObject = Instantiate(clientMessagePrefab, messageGrid.transform);
-        ClientMessage newClientMessage = newClientMessageObject.GetComponent<ClientMessage>();
-        newClientMessage.SetText(text);
+        currentClientMessage.GetComponent<ClientMessage>().SetText(text);
     }
 
-    private void CreateServerMessage(string text)
+    private void SetUpServerMessage(string text)
     {
-        GameObject newClientMessageObject = Instantiate(serverMessagePrefab, messageGrid.transform);
-        ServerMessage newClientMessage = newClientMessageObject.GetComponent<ServerMessage>();
-        newClientMessage.SetText(text);
+        currentServerMessage.GetComponent<ServerMessage>().SetText(text);
     }
 }
