@@ -67,7 +67,7 @@ def en_find_triggers(message):
 
 def lm_answer(message):
     d = uz_find_triggers(message)
-    if d['message'] is not None:
+    if d['message'] is not None and d['message'] != '':
         if d['message'][0] == ' ':
             d['message'] = d['message'][1:]
 
