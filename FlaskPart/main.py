@@ -6,7 +6,8 @@ from werkzeug.utils import secure_filename
 import synthesizer
 
 app = Flask(__name__)
-
+import lm_facebook
+import train
 audios_path = 'audios'
 
 
@@ -34,11 +35,19 @@ def get_answer_by_text():
         if text != "":
             print("Get text ", text)
             # Здесь получим ответ от Игоря
-            answer_text = "Kaleysan, yaxshimisan, o'rto?"
+            answer_text, d = lm_facebook.lm_answer(text)
+            #answer_text = "Kaleysan, yaxshimisan, o'rto?"
             audio_path = synthesizer.make_audio_from_text(answer_text)
             audio_url = url_for("download", file_path=audio_path)
             print("url in answer " + audio_url)
-            response_body = compose_response("some action", text, answer_text=answer_text,
+            some_action = 'chat'
+            if d['internet'] == True:
+                some_action = 'internet'
+            elif d['app']:
+                some_action = 'app'
+            elif d['alarm']:
+                some_action = 'alarm'
+            response_body = compose_response(some_action, text, answer_text=answer_text,
                                              audio_url=audio_url)
             return make_response(response_body, 200)
         else:
@@ -53,10 +62,25 @@ def get_answer_by_audio():
         file = request.files['audio']
         if file != '':
             filename = secure_filename(file.filename)
-            print("Get file ", filename)
-            file.save(os.path.join(app.root_path, audios_path, filename + ".mp3"))
-            response_body = compose_response("some action", "Here will be question text", "Here will be answer text",
-                                             "AudioUrl")
+            #print("Get file ", filename)
+            fname = os.path.join(app.root_path, audios_path, filename + ".mp3")
+            file.save(fname)
+            fname_list = [fname]
+            recognized_text = train.first_asr_model.transcribe(fname_list, batch_size=1)
+            answer_text, d = lm_facebook.lm_answer(recognized_text)
+            # answer_text = "Kaleysan, yaxshimisan, o'rto?"
+            audio_path = synthesizer.make_audio_from_text(answer_text)
+            audio_url = url_for("download", file_path=audio_path)
+            #print("url in answer " + audio_url)
+            some_action = 'chat'
+            if d['internet'] == True:
+                some_action = 'internet'
+            elif d['app']:
+                some_action = 'app'
+            elif d['alarm']:
+                some_action = 'alarm'
+            response_body = compose_response(some_action, recognized_text, answer_text=answer_text,
+                                             audio_url=audio_url)
             return make_response(response_body, 200)
         else:
             return make_response("file is empty", 400)
