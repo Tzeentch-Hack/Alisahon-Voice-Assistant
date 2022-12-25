@@ -12,6 +12,7 @@ model = ''
 root_path = ''
 answer_audios_path = 'answer_audios'
 
+
 def initialize(root_path_main):
     torchaudio.set_audio_backend("soundfile")  # switch backend
 
