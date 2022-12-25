@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChatWindowPresenter : MonoBehaviour
 {
@@ -47,7 +48,10 @@ public class ChatWindowPresenter : MonoBehaviour
     {
         SetUpCLientMessage(dialogUIResponseModel.questionText);
         SetUpServerMessage(dialogUIResponseModel.answerText);
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)messageGrid.transform);
     }
+
 
     private void SetUpCLientMessage(string text)
     {
