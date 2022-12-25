@@ -46,6 +46,7 @@ public class ChatWindowPresenter : MonoBehaviour
 
     private void RecieveResponse(DialogUIResponseModel dialogUIResponseModel)
     {
+        Debug.Log(dialogUIResponseModel.questionText);
         SetUpCLientMessage(dialogUIResponseModel.questionText);
         SetUpServerMessage(dialogUIResponseModel.answerText);
         Canvas.ForceUpdateCanvases();

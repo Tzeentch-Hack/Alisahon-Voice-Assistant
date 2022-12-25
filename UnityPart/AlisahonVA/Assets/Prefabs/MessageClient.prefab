@@ -75,8 +75,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -177,7 +177,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 317.59195, y: 0}
-  m_SizeDelta: {x: 635.1839, y: 0}
+  m_SizeDelta: {x: 620, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7538497577400437706
 CanvasRenderer:
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.45490196, b: 0, a: 1}
+  m_Color: {r: 0.64705884, g: 0.8156863, b: 0.15686275, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -315,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: 53c3aa73f24cacf41952f0f4da60a306, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 602.6839
+      value: 587.5
       objectReference: {fileID: 0}
     - target: {fileID: 22400000, guid: 53c3aa73f24cacf41952f0f4da60a306, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -339,7 +339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400002, guid: 53c3aa73f24cacf41952f0f4da60a306, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 557.6839
+      value: 542.5
       objectReference: {fileID: 0}
     - target: {fileID: 22400002, guid: 53c3aa73f24cacf41952f0f4da60a306, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400006, guid: 53c3aa73f24cacf41952f0f4da60a306, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 512.6839
+      value: 497.5
       objectReference: {fileID: 0}
     - target: {fileID: 22400006, guid: 53c3aa73f24cacf41952f0f4da60a306, type: 3}
       propertyPath: m_AnchoredPosition.y

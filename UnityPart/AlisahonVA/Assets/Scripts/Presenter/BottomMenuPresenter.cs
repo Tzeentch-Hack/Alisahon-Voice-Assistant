@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -59,9 +60,50 @@ public class BottomMenuPresenter : MonoBehaviour
         multiFunctionalButton.gameObject.SetActive(true);
         multiFunctionalButton.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         inputField.gameObject.SetActive(true);
+        inputField.text = "";
         loader.SetActive(false);
         audioSource.clip = dialogUIResponse.audioClip;
         audioSource.Play();
+        if (dialogUIResponse.action == "chat") return;
+        Action(dialogUIResponse.action);
+    }
+
+    public void Action(string action)
+    {
+        bool fail = false;
+        string bundleId = action switch
+        {
+            "internet" => "com.android.chrome",
+            "alarm" => "com.hb.dialer.free",
+            _ => "",
+        };
+        AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject ca = up.GetStatic<AndroidJavaObject>("currentActivity");
+        AndroidJavaObject packageManager = ca.Call<AndroidJavaObject>("getPackageManager");
+        Debug.Log(packageManager);
+        AndroidJavaObject launchIntent = null;
+        try
+        {
+            launchIntent = packageManager.Call<AndroidJavaObject>("getLaunchIntentForPackage", bundleId);
+            if (action=="alarm") { }
+        }
+        catch (System.Exception e)
+        {
+            fail = true;
+        }
+
+        if (fail || launchIntent == null)
+        { //open app in store
+            Application.OpenURL($"https://play.google.com/store/apps/details?id={bundleId}");
+        }
+        else //open the app
+            ca.Call("startActivity", launchIntent);
+
+        up.Dispose();
+        ca.Dispose();
+        packageManager.Dispose();
+        if(launchIntent != null)
+        launchIntent.Dispose();
     }
 
     private void CheckInput(string text)

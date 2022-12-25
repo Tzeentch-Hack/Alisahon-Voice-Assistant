@@ -1008,6 +1008,7 @@ IL2CPP_EXTERN_C RuntimeClass* InvalidOperationException_t5DDE4D49B7405FAAB1E4576
 IL2CPP_EXTERN_C RuntimeClass* KeyCode_t75B9ECCC26D858F55040DDFF9523681E996D17E9_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* LAMEVersion_t16D5087DF1047D1BE629AA5C8B9FCE4C2FF2AF09_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* LameMP3FileWriter_t5AA0F3AADB8B5161EED0E34476BE8C934229638C_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* LayoutRebuilder_tD2269CCD93BD5A8C4A92188C66E212B976FA6564_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* LibMp3Lame_tB0330AB20456DE1BC83925387BEF3FE3048D8603_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* LinkedList_1_t446F07F9CC375EAB5709006DB7AB8818250EF63D_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* List_1_t0D1C46FD8DDDE974D93CA4F3474EEC05AF950918_il2cpp_TypeInfo_var;
@@ -1032,6 +1033,7 @@ IL2CPP_EXTERN_C RuntimeClass* PromiseStateException_t52911F6A2FC32A315E8756D6F9A
 IL2CPP_EXTERN_C RuntimeClass* PromiseState_t832CD89A151D5E273800562C59D6FF89B0B408D2_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Promise_1_t46079F9D6D313B9E6BE300F749F3E0643995165D_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* Promise_tC0F862077973826645AC46C011CC42F69CDB9A82_il2cpp_TypeInfo_var;
+IL2CPP_EXTERN_C RuntimeClass* RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* RectU5BU5D_t83297CB2E61BDF9D27DCB1A3E5C78EBCE9F7C993_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* RequestException_tB79F2199F4A33F1A4334D5AC169AA874B46F80A9_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* RequestHelper_t9D74E18CE3036DEF5E7344045F37CE8B5AF496C2_il2cpp_TypeInfo_var;
@@ -9489,6 +9491,10 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ChatMessage_SetText_m1B71F4FD0572832CAA1
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ChatWindowPresenter_SetUpCLientMessage_m34EF50B11456566D6FAD0D74A261F3121984FAB2 (ChatWindowPresenter_t83D1D5EFBA78BDEC9D230D1BB9F31A7602A822C3* __this, String_t* ___0_text, const RuntimeMethod* method) ;
 // System.Void ChatWindowPresenter::SetUpServerMessage(System.String)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ChatWindowPresenter_SetUpServerMessage_mD7D4B2B91756C3C6AC4DD5309B9F4E740B71E83B (ChatWindowPresenter_t83D1D5EFBA78BDEC9D230D1BB9F31A7602A822C3* __this, String_t* ___0_text, const RuntimeMethod* method) ;
+// System.Void UnityEngine.Canvas::ForceUpdateCanvases()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Canvas_ForceUpdateCanvases_m6ECDBC5E85ADA3301BB20611753C45769F15EB51 (const RuntimeMethod* method) ;
+// System.Void UnityEngine.UI.LayoutRebuilder::ForceRebuildLayoutImmediate(UnityEngine.RectTransform)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void LayoutRebuilder_ForceRebuildLayoutImmediate_mCCA094579654469919EFA4B5AA5D9AF93CD67B4A (RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* ___0_layoutRoot, const RuntimeMethod* method) ;
 // T UnityEngine.GameObject::GetComponent<ServerMessage>()
 inline ServerMessage_t267A4A5C7C0F0673DEA2DA1785B4716FABF25EF0* GameObject_GetComponent_TisServerMessage_t267A4A5C7C0F0673DEA2DA1785B4716FABF25EF0_m9968C07A5711506EFF49E0C6E2E1C16B14A0AB10 (GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* __this, const RuntimeMethod* method)
 {
@@ -16530,6 +16536,13 @@ IL_003a:
 // System.Void ChatWindowPresenter::RecieveResponse(DialogUIResponseModel)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ChatWindowPresenter_RecieveResponse_m0D34C3790C93FDB7DB1FEFCD593E84698F93F15D (ChatWindowPresenter_t83D1D5EFBA78BDEC9D230D1BB9F31A7602A822C3* __this, DialogUIResponseModel_t6D54567186D1076611BA90B3A51080EC39496C8C* ___0_dialogUIResponseModel, const RuntimeMethod* method) 
 {
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&LayoutRebuilder_tD2269CCD93BD5A8C4A92188C66E212B976FA6564_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5_il2cpp_TypeInfo_var);
+		s_Il2CppMethodInitialized = true;
+	}
 	{
 		// SetUpCLientMessage(dialogUIResponseModel.questionText);
 		DialogUIResponseModel_t6D54567186D1076611BA90B3A51080EC39496C8C* L_0 = ___0_dialogUIResponseModel;
@@ -16541,6 +16554,15 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ChatWindowPresenter_RecieveResponse_m0D3
 		NullCheck(L_2);
 		String_t* L_3 = L_2->___answerText_2;
 		ChatWindowPresenter_SetUpServerMessage_mD7D4B2B91756C3C6AC4DD5309B9F4E740B71E83B(__this, L_3, NULL);
+		// Canvas.ForceUpdateCanvases();
+		Canvas_ForceUpdateCanvases_m6ECDBC5E85ADA3301BB20611753C45769F15EB51(NULL);
+		// LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)messageGrid.transform);
+		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_4 = __this->___messageGrid_6;
+		NullCheck(L_4);
+		Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* L_5;
+		L_5 = GameObject_get_transform_m0BC10ADFA1632166AE5544BDF9038A2650C2AE56(L_4, NULL);
+		il2cpp_codegen_runtime_class_init_inline(LayoutRebuilder_tD2269CCD93BD5A8C4A92188C66E212B976FA6564_il2cpp_TypeInfo_var);
+		LayoutRebuilder_ForceRebuildLayoutImmediate_mCCA094579654469919EFA4B5AA5D9AF93CD67B4A(((RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5*)CastclassSealed((RuntimeObject*)L_5, RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5_il2cpp_TypeInfo_var)), NULL);
 		// }
 		return;
 	}
