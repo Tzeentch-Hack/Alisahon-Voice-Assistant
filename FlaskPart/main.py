@@ -67,7 +67,8 @@ def get_answer_by_audio():
             file.save(fname)
             fname_list = [fname]
             recognized_text = train.first_asr_model.transcribe(fname_list, batch_size=1)
-            answer_text, d = lm_facebook.lm_answer(recognized_text)
+            print('recognized_text:', recognized_text)
+            answer_text, d = lm_facebook.lm_answer(recognized_text[0])
             # answer_text = "Kaleysan, yaxshimisan, o'rto?"
             audio_path = synthesizer.make_audio_from_text(answer_text)
             audio_url = url_for("download", file_path=audio_path)
@@ -79,7 +80,7 @@ def get_answer_by_audio():
                 some_action = 'app'
             elif d['alarm']:
                 some_action = 'alarm'
-            response_body = compose_response(some_action, recognized_text, answer_text=answer_text,
+            response_body = compose_response(action=some_action, question_text=recognized_text[0], answer_text=answer_text,
                                              audio_url=audio_url)
             return make_response(response_body, 200)
         else:
