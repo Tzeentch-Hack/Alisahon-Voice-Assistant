@@ -70,7 +70,6 @@ def lm_answer(message):
     if d['message'] is not None:
         if d['message'][0] == ' ':
             d['message'] = d['message'][1:]
-    print('d:', d)
 
     en_message = translator.translate(message, src='uz', dest='en').text
     inputs = tokenizer(en_message, return_tensors="pt")
@@ -85,7 +84,7 @@ def lm_answer(message):
     uzb_answer = uzb_answer.replace('?', '? ')
     if uzb_answer[-1] == ' ':
         uzb_answer = uzb_answer[:-1]
-    return uzb_answer
+    return uzb_answer, d
 
 
 #print(lm_answer("Alisaxon, mazzam yo'q"))
