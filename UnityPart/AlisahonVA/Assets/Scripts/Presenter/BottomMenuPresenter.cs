@@ -71,11 +71,14 @@ public class BottomMenuPresenter : MonoBehaviour
     public void Action(string action)
     {
         bool fail = false;
-        string bundleId = action switch
+        string bundleId = action;
+        if (action == "internet")
         {
-            "internet" => "com.android.chrome",
-            "alarm" => "com.hb.dialer.free",
-            _ => "",
+            bundleId = "com.android.chrome";
+        }
+        else if(action == "alarm")
+        {
+            bundleId = "com.hb.dialer.free";
         };
         AndroidJavaClass up = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject ca = up.GetStatic<AndroidJavaObject>("currentActivity");
@@ -85,7 +88,6 @@ public class BottomMenuPresenter : MonoBehaviour
         try
         {
             launchIntent = packageManager.Call<AndroidJavaObject>("getLaunchIntentForPackage", bundleId);
-            if (action=="alarm") { }
         }
         catch (System.Exception e)
         {
@@ -93,8 +95,10 @@ public class BottomMenuPresenter : MonoBehaviour
         }
 
         if (fail || launchIntent == null)
-        { //open app in store
-            Application.OpenURL($"https://play.google.com/store/apps/details?id={bundleId}");
+        {
+          
+            Application.OpenURL($" https://www.google.com/search?q={bundleId}");
+            
         }
         else //open the app
             ca.Call("startActivity", launchIntent);
@@ -142,7 +146,8 @@ public class BottomMenuPresenter : MonoBehaviour
         {
             Microphone.End(null);
             Debug.Log("Stop recording");
-            byte[] bytes = WavToMp3.ConvertWavToMp3(clientAudio, 128);
+          
+            byte[] bytes = WavToMp3.ConvertWavToMp3(clientAudio, 48);
             ChatInteractor.Instance.SendAudio(bytes);
             chatWindowPresenter.CreateMessages("");
             multiFunctionalButton.gameObject.SetActive(false);
@@ -151,9 +156,15 @@ public class BottomMenuPresenter : MonoBehaviour
         else
         {
             Debug.Log("Start recording");
-            clientAudio = Microphone.Start(null, false, 5, 32000);
+            clientAudio = Microphone.Start(null, false,3, 32000);
             inputField.gameObject.SetActive(false);
             multiFunctionalButton.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
+    }
+
+    private AudioClip TrimSilence(AudioClip oldAudioclip)
+    {
+        AudioClip result = SavWav.TrimSilence(oldAudioclip, 0.5f);
+        return result;
     }
 }

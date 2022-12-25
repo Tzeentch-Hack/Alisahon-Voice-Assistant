@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 public class ChatGateway
 {
 
-    private readonly string basePath = "http://192.168.1.105:5000";
+    private readonly string basePath = "http://192.168.134.187:5000";
 	private RequestHelper currentRequest;
 
 	public static ChatGateway Instance;

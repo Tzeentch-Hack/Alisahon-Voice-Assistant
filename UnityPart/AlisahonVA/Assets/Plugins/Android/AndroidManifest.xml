@@ -15,6 +15,6 @@
     </application>
   <queries>
     <package android:name="com.android.chrome" />
-    <package android:name="com.android.incallui" />
+    <package android:name="com.hb.dialer.free" />
   </queries>
 </manifest>
